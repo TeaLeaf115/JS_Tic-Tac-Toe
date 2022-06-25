@@ -111,7 +111,7 @@ function drawX(row, col)
     add(x);
     
     board.set(row, col, 1);
-    print(board);
+    print("\n\n\n" + board);
     
     turn++;
 }
@@ -128,7 +128,7 @@ function drawO(row, col)
     add(o);
     
     board.set(row, col, 2);
-    print(board);
+    print("\n\n\n" + board);
     
     turn++;
 }
