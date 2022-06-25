@@ -58,29 +58,29 @@ function onClick(m)
     { takeTurn(0, 0); }
     
     else if (IN_TOP_ROW && IN_MID_COL)
-    { takeTurn(1, 0); }
+    { takeTurn(0, 1); }
     
     else if (IN_TOP_ROW && IN_RIGHT_COL)
-    { takeTurn(2, 0); }
+    { takeTurn(0, 2); }
     
     
     
     else if (IN_MID_ROW && IN_LEFT_COL)
-    { takeTurn(0, 1); }
+    { takeTurn(1, 0); }
     
     else if (IN_MID_ROW && IN_MID_COL)
     { takeTurn(1, 1); }
     
     else if (IN_MID_ROW && IN_RIGHT_COL)
-    { takeTurn(2, 1); }
+    { takeTurn(1, 2); }
     
     
     
     else if (IN_BOT_ROW && IN_LEFT_COL)
-    { takeTurn(0, 2); }
+    { takeTurn(2, 0); }
     
     else if (IN_BOT_ROW && IN_MID_COL)
-    { takeTurn(1, 2); }
+    { takeTurn(2, 1); }
     
     else if (IN_BOT_ROW && IN_RIGHT_COL)
     { takeTurn(2, 2); }
@@ -104,7 +104,7 @@ function drawX(row, col)
 {
     var x = new WebImage("https://raw.githubusercontent.com/TeaLeaf115/JS_Tic-Tac-Toe/main/JS-TTT_X.png");
     
-    x.setPosition(POS_TO_PX.get(row), POS_TO_PX.get(col));
+    x.setPosition(POS_TO_PX.get(col), POS_TO_PX.get(row));
     
     x.setSize(75, 75);
     
@@ -114,6 +114,7 @@ function drawX(row, col)
     print("\n\n\n" + board);
     
     turn++;
+    // println(x.getX() + ", " + x.getY());
 }
 
 // This draws an O at a certain location on the screen
@@ -121,7 +122,7 @@ function drawO(row, col)
 {
     var o = new WebImage("https://raw.githubusercontent.com/TeaLeaf115/JS_Tic-Tac-Toe/main/JS-TTT_O.png");
     
-    o.setPosition(POS_TO_PX.get(row), POS_TO_PX.get(col));
+    o.setPosition(POS_TO_PX.get(col), POS_TO_PX.get(row));
     
     o.setSize(75, 75);
     
