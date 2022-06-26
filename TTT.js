@@ -18,7 +18,7 @@ function start()
 {
 	drawGame();
     mouseClickMethod(onClick);
-    
+    println("Game Over");
 }
 
 function drawGame()
@@ -85,6 +85,8 @@ function onClick(m)
     else if (IN_BOT_ROW && IN_RIGHT_COL)
     { takeTurn(2, 2); }
     
+    if (gameLogic())
+    { return; }
 }
 
 function takeTurn(row, col)
@@ -102,7 +104,7 @@ function takeTurn(row, col)
 // This draws an X at a certain location on the screen
 function drawX(row, col)
 {
-    var x = new WebImage("https://raw.githubusercontent.com/TeaLeaf115/JS_Tic-Tac-Toe/main/JS-TTT_X.png");
+    var x = new WebImage("https://raw.githubusercontent.com/TeaLeaf115/JS_Tic-Tac-Toe/main/images/JS-TTT_X.png");
     
     x.setPosition(POS_TO_PX.get(col), POS_TO_PX.get(row));
     
@@ -114,13 +116,12 @@ function drawX(row, col)
     print("\n\n\n" + board);
     
     turn++;
-    // println(x.getX() + ", " + x.getY());
 }
 
 // This draws an O at a certain location on the screen
 function drawO(row, col)
 {
-    var o = new WebImage("https://raw.githubusercontent.com/TeaLeaf115/JS_Tic-Tac-Toe/main/JS-TTT_O.png");
+    var o = new WebImage("https://raw.githubusercontent.com/TeaLeaf115/JS_Tic-Tac-Toe/main/images/JS-TTT_O.png");
     
     o.setPosition(POS_TO_PX.get(col), POS_TO_PX.get(row));
     
@@ -132,4 +133,105 @@ function drawO(row, col)
     print("\n\n\n" + board);
     
     turn++;
+}
+
+function gameLogic()
+{
+    var topLeft = board.get(0, 0);
+    var topMid = board.get(0, 1);
+    var topRight = board.get(0, 2);
+    var midLeft = board.get(1, 0);
+    var mid = board.get(1, 1);
+    var midRight = board.get(1, 2);
+    var botLeft = board.get(2, 0);
+    var botMid = board.get(2, 1);
+    var botRight = board.get(2, 2);
+    
+    if (topLeft == midLeft && topLeft == botLeft && topLeft != 0)
+    {
+        winCheck();
+        return true;
+    }
+    
+    else if (topMid == mid && topMid == botMid && topMid != 0)
+    {
+        winCheck();
+        return true;
+    }
+    
+    else if (topRight == midRight && topRight == botRight && topRight !=0)
+    {
+        winCheck();
+        return true;
+    }
+    
+    
+    
+    else if (topLeft == topMid && topLeft == topRight && topLeft != 0)
+    {
+        winCheck();
+        return true;
+    }
+    
+    else if (midLeft == mid && midLeft == midRight && midLeft != 0)
+    {
+        winCheck();
+        return true;
+    }
+    
+    else if (botLeft == botMid && botLeft == botRight && botLeft != 0)
+    {
+        winCheck();
+        return true;
+    }
+    
+    
+    
+    else if (topLeft == mid && topLeft == botRight && topLeft != 0)
+    {
+        winCheck();
+        return true;
+    }
+    
+    else if (topRight == mid && topRight == botLeft && topRight != 0)
+    {
+        winCheck();
+        return true;
+    }
+    
+    else
+    {
+        for (let i=0; i<3; i++)
+        {
+            for (let j=0; j<3; j++)
+            {
+                if (board.get(i, j) == 0)
+                { return; }
+            }
+        }
+        
+        var drawTxt = new WebImage("https://raw.githubusercontent.com/TeaLeaf115/JS_Tic-Tac-Toe/main/images/JS-TTT_draw.png");
+        drawTxt.setPosition(0, 0);
+        
+        add(drawTxt);
+    }
+}
+
+function winCheck()
+{
+    if (getTurnVal() == 1)
+    {
+        var xWinTxt = new WebImage("https://raw.githubusercontent.com/TeaLeaf115/JS_Tic-Tac-Toe/main/images/JS-TTT_xWin.png");
+        xWinTxt.setPosition(0, 0);
+        
+        add(xWinTxt);
+    }
+    
+    else
+    {
+        var oWinTxt = new WebImage("https://raw.githubusercontent.com/TeaLeaf115/JS_Tic-Tac-Toe/main/images/JS-TTT_oWin.png");
+        oWinTxt.setPosition(0, 0);
+        
+        add(oWinTxt);
+    }
 }
