@@ -4,6 +4,8 @@ setSize(WIDTH, HEIGHT);
 
 var turn = 0;
 
+var gameOver = false;
+
 const POS_TO_PX = new Map([
     [0, 12.5],
     [1,112.5],
@@ -18,7 +20,9 @@ function start()
 {
 	drawGame();
     mouseClickMethod(onClick);
-    println("Game Over");
+    
+    if (gameOver)
+    { println("GAME OVER!!!"); }
 }
 
 function drawGame()
@@ -85,7 +89,9 @@ function onClick(m)
     else if (IN_BOT_ROW && IN_RIGHT_COL)
     { takeTurn(2, 2); }
     
-    if (gameLogic())
+    gameLogic();
+    
+    if (gameOver)
     { return; }
 }
 
@@ -150,19 +156,16 @@ function gameLogic()
     if (topLeft == midLeft && topLeft == botLeft && topLeft != 0)
     {
         winCheck();
-        return true;
     }
     
     else if (topMid == mid && topMid == botMid && topMid != 0)
     {
         winCheck();
-        return true;
     }
     
     else if (topRight == midRight && topRight == botRight && topRight !=0)
     {
         winCheck();
-        return true;
     }
     
     
@@ -170,19 +173,16 @@ function gameLogic()
     else if (topLeft == topMid && topLeft == topRight && topLeft != 0)
     {
         winCheck();
-        return true;
     }
     
     else if (midLeft == mid && midLeft == midRight && midLeft != 0)
     {
         winCheck();
-        return true;
     }
     
     else if (botLeft == botMid && botLeft == botRight && botLeft != 0)
     {
         winCheck();
-        return true;
     }
     
     
@@ -190,13 +190,11 @@ function gameLogic()
     else if (topLeft == mid && topLeft == botRight && topLeft != 0)
     {
         winCheck();
-        return true;
     }
     
     else if (topRight == mid && topRight == botLeft && topRight != 0)
     {
         winCheck();
-        return true;
     }
     
     else
@@ -224,6 +222,10 @@ function winCheck()
         var xWinTxt = new WebImage("https://raw.githubusercontent.com/TeaLeaf115/JS_Tic-Tac-Toe/main/images/JS-TTT_xWin.png");
         xWinTxt.setPosition(0, 0);
         
+        clearBoard();
+        
+        gameOver = true;
+        
         add(xWinTxt);
     }
     
@@ -232,6 +234,22 @@ function winCheck()
         var oWinTxt = new WebImage("https://raw.githubusercontent.com/TeaLeaf115/JS_Tic-Tac-Toe/main/images/JS-TTT_oWin.png");
         oWinTxt.setPosition(0, 0);
         
+        clearBoard();
+        
+        gameOver = true;
+        
         add(oWinTxt);
+    }
+}
+
+function clearBoard()
+{
+    for (let i=0; i<3; i++)
+    {
+        for (let j=0; j<3; j++)
+        {
+            if (board.get(i, j) == 0)
+            { board.set(i, j, -1); }
+        }
     }
 }
